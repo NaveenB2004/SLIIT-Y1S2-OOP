@@ -6,6 +6,8 @@ import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +28,13 @@ public final class NotificationService {
         try (var reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
+                System.out.println(line);
                 Notification notification = gson.fromJson(line, Notification.class);
                 notifications.add(notification);
                 notificationId = Math.max(notificationId, notification.getId());
             }
         }
+        notificationId++;
         lock.unlock();
         return notifications;
     }
@@ -48,6 +52,7 @@ public final class NotificationService {
     public boolean addNotification(@NonNull Notification notification) throws IOException {
         List<Notification> notifications = getNotifications();
         notification.setId(notificationId++);
+        notification.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd : HH:mm:ss")));
         notifications.add(notification);
         save(notifications);
         return true;

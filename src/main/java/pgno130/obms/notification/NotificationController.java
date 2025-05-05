@@ -23,13 +23,13 @@ public final class NotificationController {
     public String getNotification(Model model,
                                   @PathVariable Long notificationId) throws IOException {
         model.addAttribute("notification", notificationService.getNotification(notificationId));
-        model.addAttribute("isAdmin", true);
+        model.addAttribute("isAdmin", true); // dynamic
         return "notification/single-notification";
     }
 
-    @GetMapping("/update-notification/{notificationId}")
+    @GetMapping({"/update-notification/{notificationId}", "/update-notification"})
     public String openNotificationEditor(Model model,
-                                         @PathVariable Long notificationId) throws IOException {
+                                         @PathVariable(required = false) Long notificationId) throws IOException {
         model.addAttribute("notification", notificationId == null ?
                 null : notificationService.getNotification(notificationId));
         return "notification/edit-notification";
@@ -37,8 +37,8 @@ public final class NotificationController {
 
     @PostMapping("/update-notification")
     public String updateNotification(Model model,
-                                     @RequestParam Long id,
-                                     @RequestParam String timestamp,
+                                     @RequestParam(required = false) Long id,
+                                     @RequestParam(required = false) String timestamp,
                                      @RequestParam String title,
                                      @RequestParam String message) throws IOException {
         Notification notification = new Notification();
@@ -48,12 +48,12 @@ public final class NotificationController {
         notification.setMessage(message);
         model.addAttribute("isSuccess", id == null ?
                 notificationService.addNotification(notification) : notificationService.updateNotification(notification));
-        return "redirect://notification/";
+        return "notification/notification";
     }
 
     @GetMapping("/delete-notification/{notificationId}")
     public String deleteNotification(@PathVariable Long notificationId) throws IOException {
         notificationService.deleteNotification(notificationId);
-        return "redirect://notification/";
+        return "notification/notification";
     }
 }

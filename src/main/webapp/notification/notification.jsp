@@ -27,6 +27,7 @@
                         <tbody>
                         <%
                             List<Notification> notifications = (List<Notification>) request.getAttribute("notifications");
+                            System.out.println("x");
                             for (Notification notification : notifications) {
                                 out.println("<tr>");
                                 out.println("<th scope = \"row\">" + notification.getId() + "</th>");

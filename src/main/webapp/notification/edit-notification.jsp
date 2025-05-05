@@ -18,10 +18,25 @@
                     <%
                         Notification notification = request.getAttribute("notification") == null ?
                                 null : (Notification) request.getAttribute("notification");
-                        if (notification != null) {
-                            out.println(notification.getId());
-                        }
                     %>
+
+                    <form action = "${pageContext.request.contextPath}/notification/update-notification"
+                          method = "post">
+                        <%
+                            if (notification != null) {
+                                out.println("<input type = \"hidden\" name = \"id\" value = \"" + notification.getId() + "\">");
+                                out.println("<input type = \"hidden\" name = \"timestamp\" value = \"" + notification.getTimestamp() + "\">");
+                            }
+                        %>
+
+                        <label for = "title">Title</label>
+                        <input type = "text" class = "form-control" id = "title" name = "title"
+                               value = "<%= notification == null ? "" : notification.getTitle() %>">
+                        <label for = "message">Message</label>
+                        <input type = "text" class = "form-control" id = "message" name = "message"
+                               value = "<%= notification == null ? "" : notification.getMessage() %>">
+                        <button type = "submit" class = "btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
