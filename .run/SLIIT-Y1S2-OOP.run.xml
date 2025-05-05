@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SLIIT-Y1S2-OOP" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="obms" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="pgno130.obms.SliitY1S2OopApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
