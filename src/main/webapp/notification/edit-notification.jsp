@@ -12,32 +12,36 @@
               crossorigin = "anonymous">
     </head>
     <body>
-        <div class = "container text-center">
-            <div class = "row">
-                <div class = "col align-self-center">
+        <br><br>
+        <h1 class="container col assign-self-center text-center">Online Bookstore Management System</h1>
+        <br><br>
+        <div class = "container">
+            <div class = "col align-self-center">
+                <%
+                    Notification notification = request.getAttribute("notification") == null ?
+                            null : (Notification) request.getAttribute("notification");
+                %>
+
+                <form action = "${pageContext.request.contextPath}/notification/update-notification"
+                      method = "post">
                     <%
-                        Notification notification = request.getAttribute("notification") == null ?
-                                null : (Notification) request.getAttribute("notification");
+                        if (notification != null) {
+                            out.println("<input type = \"hidden\" name = \"id\" value = \"" + notification.getId() + "\">");
+                            out.println("<input type = \"hidden\" name = \"timestamp\" value = \"" + notification.getTimestamp() + "\">");
+                        }
                     %>
-
-                    <form action = "${pageContext.request.contextPath}/notification/update-notification"
-                          method = "post">
-                        <%
-                            if (notification != null) {
-                                out.println("<input type = \"hidden\" name = \"id\" value = \"" + notification.getId() + "\">");
-                                out.println("<input type = \"hidden\" name = \"timestamp\" value = \"" + notification.getTimestamp() + "\">");
-                            }
-                        %>
-
-                        <label for = "title">Title</label>
+                    <div class = "mb-3">
+                        <label for = "title" class = "form-label">Notification Title</label>
                         <input type = "text" class = "form-control" id = "title" name = "title"
                                value = "<%= notification == null ? "" : notification.getTitle() %>">
-                        <label for = "message">Message</label>
-                        <input type = "text" class = "form-control" id = "message" name = "message"
-                               value = "<%= notification == null ? "" : notification.getMessage() %>">
-                        <button type = "submit" class = "btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class = "mb-3">
+                        <label for = "message" class = "form-label">Description</label>
+                        <textarea class = "form-control" id = "message" name = "message"
+                                  rows = "5"><%= notification == null ? "" : notification.getMessage() %></textarea>
+                    </div>
+                    <button type = "submit" class = "btn btn-primary d-grid gap-2 col-6 mx-auto">Submit</button>
+                </form>
             </div>
         </div>
 

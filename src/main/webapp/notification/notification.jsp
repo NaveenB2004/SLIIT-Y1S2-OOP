@@ -12,6 +12,15 @@
               crossorigin = "anonymous">
     </head>
     <body>
+        <%
+            Boolean isSuccess = request.getAttribute("isSuccess") == null ? null : (Boolean) request.getAttribute("isSuccess");
+            if (isSuccess != null) {
+                out.println(isSuccess);
+            }
+        %>
+        <br><br>
+        <h1 class="container col assign-self-center text-center">Online Bookstore Management System</h1>
+        <br><br>
         <div class = "container text-center">
             <div class = "row">
                 <div class = "col align-self-center">
@@ -27,18 +36,27 @@
                         <tbody>
                         <%
                             List<Notification> notifications = (List<Notification>) request.getAttribute("notifications");
-                            System.out.println("x");
                             for (Notification notification : notifications) {
                                 out.println("<tr>");
                                 out.println("<th scope = \"row\">" + notification.getId() + "</th>");
                                 out.println("<td>" + notification.getTitle() + "</td>");
                                 out.println("<td>" + notification.getTimestamp() + "</td>");
-                                out.println("<td><a href=\"notification/" + notification.getId() + "\">view</a></td>");
+                                out.println("<td><a href=\"" + request.getContextPath() + "/notification/" + notification.getId() + "\">" +
+                                        "<button type=\"button\" class=\"btn btn-primary btn-sm d-grid gap-2 col-6 mx-auto\">View</button>" +
+                                        "</a></td>");
                                 out.println("</tr>");
                             }
                         %>
                         </tbody>
                     </table>
+                    <br>
+                    <%
+                        Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+                        if (isAdmin) {
+                            out.println("<a href=\"" + request.getContextPath() + "/notification/update-notification\">" +
+                                    "<button type=\"button\" class=\"btn btn-primary\">Add New Notification</button></a>");
+                        }
+                    %>
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@ public final class NotificationController {
     @GetMapping("/")
     public String getAllNotifications(Model model) throws IOException {
         model.addAttribute("notifications", notificationService.getNotifications());
+        model.addAttribute("isAdmin", true); // dynamic
         return "notification/notification";
     }
 
@@ -48,12 +49,13 @@ public final class NotificationController {
         notification.setMessage(message);
         model.addAttribute("isSuccess", id == null ?
                 notificationService.addNotification(notification) : notificationService.updateNotification(notification));
-        return "notification/notification";
+        return "redirect:/notification/";
     }
 
     @GetMapping("/delete-notification/{notificationId}")
-    public String deleteNotification(@PathVariable Long notificationId) throws IOException {
-        notificationService.deleteNotification(notificationId);
-        return "notification/notification";
+    public String deleteNotification(Model model,
+                                     @PathVariable Long notificationId) throws IOException {
+        model.addAttribute("isSuccess", notificationService.deleteNotification(notificationId));
+        return "redirect:/notification/";
     }
 }

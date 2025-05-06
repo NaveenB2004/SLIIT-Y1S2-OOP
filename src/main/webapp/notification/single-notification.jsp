@@ -12,28 +12,32 @@
               crossorigin = "anonymous">
     </head>
     <body>
+        <%
+            Notification notification = (Notification) request.getAttribute("notification");
+        %>
+        <br><br>
+        <h1 class="container col assign-self-center text-center">Online Bookstore Management System</h1>
+        <br><br>
         <div class = "container text-center">
-            <div class = "row">
-                <div class = "col align-self-center">
-                    <%
-                        Notification notification = (Notification) request.getAttribute("notification");
-                        out.println(notification.getId());
-                    %>
-                </div>
-            </div>
-        </div>
+            <div class = "col align-self-center">
+                <h1 class = "display-3"><%= notification.getTitle() %>
+                </h1>
+                <p><%=notification.getMessage()%>
+                </p>
 
-        <div class = "container">
-            <div class = "row">
-                <div class = "col align-self-end">
-                    <%
-                        boolean isAdmin = (boolean) request.getAttribute("isAdmin");
-                        if (isAdmin) {
-                            out.println("<a href=\"notification/update-notification/" + notification.getId() + "\">Edit</a>");
-                            out.println("<a href=\"notification/delete-notification/" + notification.getId() + "\">Edit</a>");
-                        }
-                    %>
-                </div>
+                <%
+                    boolean isAdmin = (boolean) request.getAttribute("isAdmin");
+                    if (isAdmin) {
+                        out.println("<div class=\"d-grid gap-2\">" +
+                                "<a href=\"" + request.getContextPath() + "/notification/update-notification/" + notification.getId() + "\">" +
+                                "<button type=\"button\" class=\"btn btn-primary col-6\">Edit Notification</button>" +
+                                "</a>");
+                        out.println("<a href=\"" + request.getContextPath() + "/notification/delete-notification/" + notification.getId() + "\">" +
+                                "<button type=\"button\" class=\"btn btn-primary col-6\">Delete Notification</button>" +
+                                "</a>" +
+                                "</div>");
+                    }
+                %>
             </div>
         </div>
 
