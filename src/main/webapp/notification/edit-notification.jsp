@@ -6,7 +6,8 @@
     <head>
         <meta charset = "utf-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1">
-        <title>Bootstrap demo</title>
+        <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/f9/90/35/f99035ed201d5cd6f927fcbba5102ad5.jpg">
+        <title>Online Bookstore Management System</title>
         <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel = "stylesheet"
               integrity = "sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
               crossorigin = "anonymous">
