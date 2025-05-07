@@ -50,6 +50,7 @@ public final class NotificationService {
     }
 
     public boolean addNotification(@NonNull Notification notification) throws IOException {
+        if (!validate(notification)) return false;
         List<Notification> notifications = getNotifications();
         notification.setId(notificationId++);
         notification.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -59,16 +60,16 @@ public final class NotificationService {
     }
 
     public boolean updateNotification(@NonNull Notification notification) throws IOException {
+        if (!validate(notification)) return false;
         List<Notification> notifications = getNotifications();
         Optional<Notification> tempNotification = notifications.stream().filter(n -> n.getId() == notification.getId()).findFirst();
         if (tempNotification.isPresent()) {
             tempNotification.get().setTitle(notification.getTitle());
             tempNotification.get().setMessage(notification.getMessage());
-            tempNotification.get().setTimestamp(notification.getTimestamp());
             save(notifications);
             return true;
         }
-        return addNotification(notification);
+        return false;
     }
 
     public boolean deleteNotification(@NonNull Long id) throws IOException {
@@ -80,6 +81,11 @@ public final class NotificationService {
             return true;
         }
         return false;
+    }
+
+    private boolean validate(@NonNull Notification notification) {
+        return (notification.getMessage() != null && !notification.getMessage().isBlank()) &&
+                (notification.getTitle() != null && !notification.getTitle().isBlank());
     }
 
     private void save(@NonNull List<Notification> notifications) throws IOException {

@@ -6,7 +6,8 @@
     <head>
         <meta charset = "utf-8">
         <meta name = "viewport" content = "width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/f9/90/35/f99035ed201d5cd6f927fcbba5102ad5.jpg">
+        <link rel = "shortcut icon" type = "image/x-icon"
+              href = "https://i.pinimg.com/736x/f9/90/35/f99035ed201d5cd6f927fcbba5102ad5.jpg">
         <title>Online Bookstore Management System</title>
         <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel = "stylesheet"
               integrity = "sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
@@ -15,12 +16,10 @@
     <body>
         <%
             Boolean isSuccess = request.getAttribute("isSuccess") == null ? null : (Boolean) request.getAttribute("isSuccess");
-            if (isSuccess != null) {
-                out.println(isSuccess);
-            }
+            boolean isAdmin = (boolean) request.getAttribute("isAdmin");
         %>
         <br><br>
-        <h1 class="container col assign-self-center text-center">Online Bookstore Management System</h1>
+        <h1 class = "container col assign-self-center text-center">Online Bookstore Management System</h1>
         <br><br>
         <div class = "container text-center">
             <div class = "row">
@@ -42,9 +41,12 @@
                                 out.println("<th scope = \"row\">" + notification.getId() + "</th>");
                                 out.println("<td>" + notification.getTitle() + "</td>");
                                 out.println("<td>" + notification.getTimestamp() + "</td>");
-                                out.println("<td><a href=\"" + request.getContextPath() + "/notification/" + notification.getId() + "\">" +
+                                out.println("<td>" +
+                                        "<a href=\"" + request.getContextPath() + "/notification/view-notification?" +
+                                        "notificationId=" + notification.getId() + "&isAdmin=" + isAdmin + "\">" +
                                         "<button type=\"button\" class=\"btn btn-primary btn-sm d-grid gap-2 col-6 mx-auto\">View</button>" +
-                                        "</a></td>");
+                                        "</a>" +
+                                        "</td>");
                                 out.println("</tr>");
                             }
                         %>
@@ -52,7 +54,14 @@
                     </table>
                     <br>
                     <%
-                        Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+                        if (isSuccess != null) {
+                            if (isSuccess) {
+                                out.println("<div class=\"p-3 mb-2 bg-success-subtle text-success-emphasis\">Success!</div>");
+                            } else {
+                                out.println("<div class=\"p-3 mb-2 bg-warning-subtle text-warning-emphasis\">Error!</div>");
+                            }
+                            out.println("<br>");
+                        }
                         if (isAdmin) {
                             out.println("<a href=\"" + request.getContextPath() + "/notification/update-notification\">" +
                                     "<button type=\"button\" class=\"btn btn-primary\">Add New Notification</button></a>");

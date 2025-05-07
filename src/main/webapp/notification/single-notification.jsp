@@ -30,10 +30,10 @@
                     boolean isAdmin = (boolean) request.getAttribute("isAdmin");
                     if (isAdmin) {
                         out.println("<div class=\"d-grid gap-2\">" +
-                                "<a href=\"" + request.getContextPath() + "/notification/update-notification/" + notification.getId() + "\">" +
+                                "<a href=\"" + request.getContextPath() + "/notification/update-notification?notificationId=" + notification.getId() + "\">" +
                                 "<button type=\"button\" class=\"btn btn-primary col-6\">Edit Notification</button>" +
                                 "</a>");
-                        out.println("<a href=\"" + request.getContextPath() + "/notification/delete-notification/" + notification.getId() + "\">" +
+                        out.println("<a href=\"" + request.getContextPath() + "/notification/delete-notification?notificationId=" + notification.getId() + "\">" +
                                 "<button type=\"button\" class=\"btn btn-primary col-6\">Delete Notification</button>" +
                                 "</a>" +
                                 "</div>");

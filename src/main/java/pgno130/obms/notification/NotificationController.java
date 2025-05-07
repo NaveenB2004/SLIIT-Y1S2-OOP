@@ -13,32 +13,35 @@ import java.io.IOException;
 public final class NotificationController {
     private final NotificationService notificationService;
 
-    @GetMapping("/")
-    public String getAllNotifications(Model model) throws IOException {
+    @GetMapping("")
+    public String getAllNotifications(Model model,
+                                      @RequestParam Boolean isAdmin,
+                                      @RequestParam(required = false) Boolean isSuccess) throws IOException {
         model.addAttribute("notifications", notificationService.getNotifications());
-        model.addAttribute("isAdmin", true); // dynamic
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isSuccess", isSuccess);
         return "notification/notification";
     }
 
-    @GetMapping("/{notificationId}")
+    @GetMapping("/view-notification")
     public String getNotification(Model model,
-                                  @PathVariable Long notificationId) throws IOException {
+                                  @RequestParam Boolean isAdmin,
+                                  @RequestParam Long notificationId) throws IOException {
         model.addAttribute("notification", notificationService.getNotification(notificationId));
-        model.addAttribute("isAdmin", true); // dynamic
+        model.addAttribute("isAdmin", isAdmin);
         return "notification/single-notification";
     }
 
-    @GetMapping({"/update-notification/{notificationId}", "/update-notification"})
+    @GetMapping( "/update-notification")
     public String openNotificationEditor(Model model,
-                                         @PathVariable(required = false) Long notificationId) throws IOException {
+                                         @RequestParam(required = false) Long notificationId) throws IOException {
         model.addAttribute("notification", notificationId == null ?
                 null : notificationService.getNotification(notificationId));
         return "notification/edit-notification";
     }
 
     @PostMapping("/update-notification")
-    public String updateNotification(Model model,
-                                     @RequestParam(required = false) Long id,
+    public String updateNotification(@RequestParam(required = false) Long id,
                                      @RequestParam(required = false) String timestamp,
                                      @RequestParam String title,
                                      @RequestParam String message) throws IOException {
@@ -47,15 +50,13 @@ public final class NotificationController {
         notification.setTimestamp(timestamp);
         notification.setTitle(title);
         notification.setMessage(message);
-        model.addAttribute("isSuccess", id == null ?
-                notificationService.addNotification(notification) : notificationService.updateNotification(notification));
-        return "redirect:/notification/";
+        return "redirect:/notification?isAdmin=true&isSuccess=" + (id == null ?
+                notificationService.addNotification(notification) :
+                notificationService.updateNotification(notification));
     }
 
-    @GetMapping("/delete-notification/{notificationId}")
-    public String deleteNotification(Model model,
-                                     @PathVariable Long notificationId) throws IOException {
-        model.addAttribute("isSuccess", notificationService.deleteNotification(notificationId));
-        return "redirect:/notification/";
+    @GetMapping("/delete-notification")
+    public String deleteNotification(@RequestParam Long notificationId) throws IOException {
+        return "redirect:/notification?isAdmin=true&isSuccess=" + notificationService.deleteNotification(notificationId);
     }
 }
