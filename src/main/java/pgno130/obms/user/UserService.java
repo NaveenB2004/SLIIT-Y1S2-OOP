@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private MockEmailService emailService;
@@ -102,11 +102,5 @@ public class UserService implements UserDetailsService {
     public void deleteUser(String id) {
         User user = getUserById(id);
         userRepository.delete(id);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 }

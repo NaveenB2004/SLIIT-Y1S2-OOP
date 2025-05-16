@@ -1,8 +1,13 @@
 package pgno130.obms.user;
 
-import java.time.LocalDateTime;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class User {
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+public class User implements UserDetails {
     private String id;
     private String name;
     private String email;
@@ -61,8 +66,18 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(() -> isAdmin() ? "ADMIN" : "USER");
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
     public void setPassword(String password) {
