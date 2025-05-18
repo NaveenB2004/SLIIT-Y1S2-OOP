@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -160,7 +160,7 @@ public class AuthController {
         } catch (UserException | jakarta.mail.MessagingException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/forgot-password";
-        } catch (IOException | MessagingException e) {
+        } catch (IOException e) {
             redirectAttributes.addFlashAttribute("error", "An error occurred. Please try again.");
             return "redirect:/forgot-password";
         }
@@ -198,8 +198,6 @@ public class AuthController {
         } catch (IOException | MessagingException e) {
             redirectAttributes.addFlashAttribute("error", "An error occurred. Please try again.");
             return "redirect:/auth/reset-password?token=" + token;
-        } catch (jakarta.mail.MessagingException e) {
-            throw new RuntimeException(e);
         }
     }
 
