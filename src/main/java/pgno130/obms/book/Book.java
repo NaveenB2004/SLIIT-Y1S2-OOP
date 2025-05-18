@@ -4,7 +4,7 @@ public class Book {
     private String title;
     private String category;
     private double price;
-    private String rating; // e.g., "⭐⭐⭐⭐"
+    private String rating;
     private int quantity;
     protected String id;
 
