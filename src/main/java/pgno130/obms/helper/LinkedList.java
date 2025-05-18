@@ -8,14 +8,38 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 public final class LinkedList<T> implements Iterable<T> {
-    @Getter
-    @Setter
-    @RequiredArgsConstructor
+//    @Getter
+//    @Setter
+//    @RequiredArgsConstructor
     private static final class Link<T> {
         private Link<T> next;
         private Link<T> prev;
         private final T data;
+
+    public Link(T data) {
+        this.data = data;
     }
+
+    public Link<T> getNext() {
+        return next;
+    }
+
+    public void setNext(Link<T> next) {
+        this.next = next;
+    }
+
+    public Link<T> getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Link<T> prev) {
+        this.prev = prev;
+    }
+
+    public T getData() {
+        return data;
+    }
+}
 
     private Link<T> head;
     private long size;

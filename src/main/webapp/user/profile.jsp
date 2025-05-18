@@ -1,228 +1,165 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>User Profile | Online Bookstore</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edit Profile</title>
+
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom Styles -->
     <style>
-        :root {
-            --primary-color: #4e73df;
-            --secondary-color: #f8f9fc;
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
         }
 
-        .profile-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        .profile-card {
+            background-color: #ffffff;
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
         }
 
         .profile-header {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 35px;
         }
 
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid var(--secondary-color);
+        .profile-header h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            color: #212529;
         }
 
-        .nav-pills .nav-link.active {
-            background-color: var(--primary-color);
+        .form-label {
+            font-weight: 600;
         }
 
-        .tab-content {
-            padding: 20px 0;
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+        .form-text {
+            font-size: 0.875rem;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="profile-container">
-        <!-- Success/Error Messages -->
-        <c:if test="${not empty successMessage}">
-            <div class="alert alert-success alert-dismissible fade show">
-                    ${successMessage}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        </c:if>
-        <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger alert-dismissible fade show">
-                    ${errorMessage}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        </c:if>
 
-        <!-- Profile Header -->
-        <div class="profile-header text-center">
-            <img src="https://ui-avatars.com/api/?name=${user.name}&background=4e73df&color=fff&size=120"
-                 alt="Profile" class="profile-avatar mb-3">
-            <h3>${user.name}</h3>
-            <p class="text-muted">${user.email}</p>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <ul class="nav nav-pills mb-4" id="profileTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#profile" type="button">Profile
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="security-tab" data-bs-toggle="pill"
-                        data-bs-target="#security" type="button">Security
-                </button>
-            </li>
-            <c:if test="${user.role == 'ADMIN'}">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="admin-tab" data-bs-toggle="pill"
-                            data-bs-target="#admin" type="button">Admin
-                    </button>
-                </li>
-            </c:if>
-        </ul>
-
-        <!-- Tab Content -->
-        <div class="tab-content" id="profileTabsContent">
-            <!-- Profile Tab -->
-            <div class="tab-pane fade show active" id="profile" role="tabpanel">
-                <form action="${pageContext.request.contextPath}/user/update" method="post">
-                    <input type="hidden" name="id" value="${user.id}">
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="name" value="${user.name}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" value="${user.email}" disabled>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Address</label>
-                        <textarea class="form-control" name="address" rows="3">${user.address}</textarea>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" name="phone" value="${user.phone}">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Member Since</label>
-                            <input type="text" class="form-control"
-                                   value="${user.createdAt}" disabled>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-2"></i>Update Profile
-                    </button>
-                </form>
-            </div>
-
-            <!-- Security Tab -->
-            <div class="tab-pane fade" id="security" role="tabpanel">
-                <form action="${pageContext.request.contextPath}/user/change-password" method="post">
-                    <input type="hidden" name="id" value="${user.id}">
-
-                    <div class="mb-3">
-                        <label class="form-label">Current Password</label>
-                        <input type="password" class="form-control" name="currentPassword" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">New Password</label>
-                        <input type="password" class="form-control" name="newPassword" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Confirm New Password</label>
-                        <input type="password" class="form-control" name="confirmPassword" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-lock me-2"></i>Change Password
-                    </button>
-                </form>
-            </div>
-
-            <!-- Admin Tab (Visible only for ADMIN) -->
-            <c:if test="${user.role == 'ADMIN'}">
-                <div class="tab-pane fade" id="admin" role="tabpanel">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h5>User Management</h5>
-                        <a href="${pageContext.request.contextPath}/admin/users/create"
-                           class="btn btn-sm btn-success">
-                            <i class="fas fa-plus me-1"></i> Add User
-                        </a>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${users}" var="u">
-                                <tr>
-                                    <td>${u.id}</td>
-                                    <td>${u.name}</td>
-                                    <td>${u.email}</td>
-                                    <td>${u.role}</td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/admin/users/edit?id=${u.id}"
-                                           class="btn btn-sm btn-primary">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/admin/users/delete?id=${u.id}"
-                                           class="btn btn-sm btn-danger"
-                                           onclick="return confirm('Are you sure?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </c:if>
-        </div>
+<div class="profile-card">
+    <div class="profile-header">
+        <h1>Edit Your Profile</h1>
+        <p class="text-muted">Keep your personal information up to date</p>
     </div>
+
+    <!-- Update Form -->
+    <form action="/update" method="post" novalidate>
+        <!-- Full Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+            <input type="text" id="name" name="name" class="form-control" value="${user.name}" required />
+            <div class="invalid-feedback">Please enter your full name.</div>
+        </div>
+
+        <!-- Email (Read-only) -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" value="${user.email}" readonly />
+            <div class="form-text">Your email cannot be changed.</div>
+        </div>
+
+        <!-- New Password -->
+        <div class="mb-3">
+            <label for="password" class="form-label">New Password</label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Leave blank to keep your current password" minlength="6" />
+            <div class="form-text">Must be at least 6 characters long if changing.</div>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" name="address" class="form-control" rows="3"
+                      placeholder="Enter your full address">${user.address}</textarea>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-control" value="${user.phone}"
+                   placeholder="+1234567890" pattern="^\+?[0-9\s\-]{7,15}$" />
+            <div class="form-text">Include your country code, e.g. +91 9876543210</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+    </form>
+
+    <!-- Delete Form -->
+    <form action="/delete" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+        <button type="submit" class="btn btn-danger w-100">Delete Account</button>
+    </form>
 </div>
 
-<!-- Bootstrap 5 JS Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Custom JS -->
-<script>
-    // Password confirmation validation
-    document.querySelector('form[action*="change-password"]').addEventListener('submit', function (e) {
-        const newPass = this.querySelector('input[name="newPassword"]').value;
-        const confirmPass = this.querySelector('input[name="confirmPassword"]').value;
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-        if (newPass !== confirmPass) {
-            e.preventDefault();
-            alert('New passwords do not match!');
-        }
-    });
+<!-- Client-side validation -->
+<script>
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('form');
+        Array.from(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
 </script>
+
 </body>
 </html>

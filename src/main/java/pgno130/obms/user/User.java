@@ -1,131 +1,93 @@
 package pgno130.obms.user;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 
-public class User implements UserDetails {
-    private String id;
+public class User extends BaseEntity {
+
     private String name;
     private String email;
-    private String password;
+    private String password; // Hashed
     private String address;
     private String phone;
+    private String role; // USER or ADMIN
     private LocalDateTime createdAt;
-    private String useOrAdmin;
-    private String rememberMe;
+    private String avatarUrl;
 
-    //Default Constructor
-    public User() {
-        this.id = "A000";
-        this.name = "Sample User";
-        this.email = "sample@gmail.com";
-        this.password = "password";
-        this.address = "Address";
-        this.phone = "+94 123 456 789";
-        this.createdAt = null;
-        this.useOrAdmin = "true";
-        this.rememberMe = "false";
-    }
-
-    //Parameterized Constructor
-    public User(String name, String email, String password, String address, String phone) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.phone = phone;
-        this.createdAt = LocalDateTime.now();
-        this.useOrAdmin = "User";
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    // Getter and Setter for name
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    // Getter and Setter for email
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> isAdmin() ? "ADMIN" : "USER");
-    }
-
+    // Getter and Setter for password
     public String getPassword() {
         return password;
     }
-
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
+    // Getter and Setter for address
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
 
+    // Getter and Setter for phone
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    // Getter and Setter for role
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Getter and Setter for createdAt
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUseOrAdmin() {
-        return useOrAdmin;
+    // Getter and Setter for avatarUrl
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
-    public void setUseOrAdmin(String useOrAdmin) {
-        this.useOrAdmin = useOrAdmin;
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", createdAt=" + createdAt +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
     }
 
-    public String getRememberMe() {
-        return rememberMe;
-    }
-
-    public void setRememberMe(String rememberMe) {
-        this.rememberMe = rememberMe;
-    }
-
-    //Business method
-    public boolean isAdmin() {
-        return "Admin".equals(useOrAdmin);
-    }
 }
