@@ -6,13 +6,32 @@ public class Book {
     private double price;
     private String rating; // e.g., "⭐⭐⭐⭐"
     private int quantity;
+    protected String id;
 
-    public Book(String title, String category, double price, String rating, int quantity) {
+    public Book() {
+        this.title = "title";
+        this.category = "category";
+        this.price = 0.0;
+        this.rating = " ";
+        this.quantity = 0;
+        this.id = "id";
+    }
+
+    public Book(String title, String category, double price, String rating, int quantity, String id) {
         this.title = title;
         this.category = category;
         this.price = price;
         this.rating = rating;
         this.quantity = quantity;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -33,6 +52,26 @@ public class Book {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public boolean isInStock() {
@@ -60,8 +99,8 @@ public class Book {
 class EBook extends Book {
     private boolean isEBook;
 
-    public EBook(String title, String category, double price, String rating, int quantity) {
-        super(title, category, price, rating, quantity);
+    public EBook(String title, String category, double price, String rating, int quantity,String id) {
+        super(title, category, price, rating, quantity,id);
         this.isEBook = true;
     }
 
@@ -78,8 +117,8 @@ class EBook extends Book {
  class PhysicalBook extends Book {
     private boolean isPhysicalBook;
 
-    public PhysicalBook(String title, String category, double price, String rating, int quantity) {
-        super(title, category, price, rating, quantity);
+    public PhysicalBook(String title, String category, double price, String rating, int quantity,String id) {
+        super(title, category, price, rating, quantity,id);
         this.isPhysicalBook = true;
     }
 

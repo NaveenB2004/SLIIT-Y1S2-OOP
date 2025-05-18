@@ -3,6 +3,12 @@ package pgno130.obms.book;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
+import java.util.UUID;
+import org.springframework.web.bind.annotation.*;
+import jakarta.annotation.PostConstruct;
+
+
+
 
 @RestController
 @RequestMapping("/books")
@@ -11,9 +17,9 @@ public class BookController {
 
     @PostConstruct
     public void init() {
-        // Adding some default books
-        bookList.addBook(new EBook("Dune", "Fiction", 9.00, "⭐⭐⭐⭐⭐", 5));
-        bookList.addBook(new PhysicalBook("1984", "Fiction", 10.00, "⭐⭐⭐⭐⭐", 2));
+        // Adding some default books with unique IDs
+        bookList.addBook(new EBook("Dune", "Fiction", 9.00, "⭐⭐⭐⭐⭐", 5, UUID.randomUUID().toString()));
+        bookList.addBook(new PhysicalBook("1984", "Fiction", 10.00, "⭐⭐⭐⭐⭐",2 , UUID.randomUUID().toString()));
     }
 
     @GetMapping
@@ -23,6 +29,9 @@ public class BookController {
 
     @PostMapping
     public String addBook(@RequestBody Book book) {
+        if (book.getId() == null || book.getId().isEmpty()) {
+            book.setId(UUID.randomUUID().toString());  // generate id if missing
+        }
         bookList.addBook(book);
         return "Book added successfully!";
     }
