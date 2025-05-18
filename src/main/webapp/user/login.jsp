@@ -96,7 +96,6 @@
 <div class="container">
     <div class="login-container">
         <div class="login-header">
-            <img src="C:\Users\adees\Desktop\OOP Project\User Management\Frontend new\1.png>" alt="Book Store 130' Logo">
             <h2>Welcome Back!</h2>
             <p class="text-muted">Please login to your account</p>
         </div>
@@ -120,9 +119,6 @@
                             <i class="fas fa-eye"></i>
                         </span>
                 </div>
-                <div class="form-text text-end">
-                    <a href="${pageContext.request.contextPath}/forgot-password">Forgot Password?</a>
-                </div>
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="remember" name="remember">
@@ -131,19 +127,6 @@
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-login">
                     <i class="fas fa-sign-in-alt me-2"></i> Login
-                </button>
-            </div>
-            <div class="divider">OR</div>
-            <div class="social-login text-center mb-3">
-                <p class="mb-3">Login with social account</p>
-                <button type="button" class="btn btn-outline-primary" onclick="alert('Google login not implemented')">
-                    <i class="fab fa-google"></i>
-                </button>
-                <button type="button" class="btn btn-outline-primary" onclick="alert('Facebook login not implemented')">
-                    <i class="fab fa-facebook-f"></i>
-                </button>
-                <button type="button" class="btn btn-outline-primary" onclick="alert('Twitter login not implemented')">
-                    <i class="fab fa-twitter"></i>
                 </button>
             </div>
 

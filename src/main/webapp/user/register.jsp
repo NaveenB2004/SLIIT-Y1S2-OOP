@@ -124,7 +124,7 @@
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                <label class="form-check-label" for="terms">I agree to the <a href="/terms">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                <label class="form-check-label" for="terms">I agree to the <a href="/terms">Terms of Service</a></label>
             </div>
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg">
