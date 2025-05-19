@@ -1,0 +1,63 @@
+/* Global styles */
+body { 
+    background-color: #f8f9fa; 
+    padding-bottom: 2rem;
+}
+
+/* Book card styles */
+.book-card { 
+    cursor: pointer; 
+    transition: transform 0.2s;
+    height: 100%;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.book-card:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.book-cover {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Admin controls */
+.admin-controls { 
+    display: none; 
+}
+
+/* Modal styles */
+.modal-body img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Form styles */
+.form-label {
+    font-weight: 500;
+}
+
+.invalid-feedback {
+    font-size: 0.875rem;
+}
+
+/* Alert styles */
+.alert {
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .book-card {
+        margin-bottom: 1rem;
+    }
+    
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+} 
