@@ -9,7 +9,7 @@ import java.io.*;
 public final class BookService {
     private static LinkedList<Book> books;
     private static long bookId = 1;
-    private static final File DATA_FILE = new File("Books.txt");
+    private static final File DATA_FILE = new File("data/Books.txt");
 
     public LinkedList<Book> getBooks() throws IOException {
         if (books != null) return books;
