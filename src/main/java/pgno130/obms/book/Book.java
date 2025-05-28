@@ -1,4 +1,14 @@
 package pgno130.obms.book;
 
-public class Book {
+import lombok.Data;
+
+@Data
+public final class Book {
+    private Long id;
+    private String title;
+    private String author;
+    private String description;
+    private String image;
+    private int price;
+    private int rating;
 }
