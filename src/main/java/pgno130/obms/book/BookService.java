@@ -12,8 +12,9 @@ public final class BookService {
     private static final File DATA_FILE = new File("Books.txt");
 
     public LinkedList<Book> getBooks() throws IOException {
+        if (books != null) return books;
         synchronized (BookService.class) {
-            if (books == null) books = new LinkedList<>();
+            books = new LinkedList<>();
             if (!DATA_FILE.exists()) return books;
             try (var reader = new BufferedReader(new FileReader(DATA_FILE))) {
                 String line;
@@ -32,6 +33,7 @@ public final class BookService {
     public Book getBook(long id) throws IOException {
         if (books == null) getBooks();
         for (Book book : books) {
+            System.out.println(book.getId());
             if (book.getId() == id) {
                 return book;
             }

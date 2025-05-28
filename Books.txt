@@ -1,0 +1,4 @@
+{"id":7,"title":"Sample Book 1","author":"Sample Author 1","description":"Sample Description 1","image":"https://i.pinimg.com/736x/d1/a0/b7/d1a0b7eb744cb75c0061af10c79dbc90.jpg","price":1200,"rating":9}
+{"id":6,"title":"Sample Book 5","author":"Sample Author 5","description":"Sample Description 5","image":"https://i.pinimg.com/736x/98/77/b2/9877b23e821c3de8cf83b71a2cdec2d3.jpg","price":1250,"rating":7}
+{"id":5,"title":"Sample Book 4","author":"Sample Author 4","description":"Sample Description 4","image":"https://i.pinimg.com/736x/5f/81/56/5f81560063947a423800b737e6a79df7.jpg","price":900,"rating":6}
+{"id":4,"title":"Sample Book 3","author":"Sample Author 3","description":"Sample Description 3","image":"https://i.pinimg.com/736x/c7/4a/e4/c74ae4aa92b50715cdfc1f277e779a60.jpg","price":1500,"rating":8}
