@@ -9,20 +9,29 @@ public final class QuickSort {
         }
     }
 
-    public static int partition(Book[] arr, int low, int high, boolean sortByPrice) {
-        int pivot = sortByPrice ? arr[high].getPrice() : arr[high].getRating();
+    private static int partition(Book[] arr, int low, int high, boolean sortByPrice) {
+        Book pivot = arr[high];
         int i = low - 1;
+
         for (int j = low; j < high; j++) {
-            if ((sortByPrice ? arr[high].getPrice() : arr[high].getRating()) <= pivot) {
+            boolean condition = sortByPrice
+                    ? arr[j].getPrice() <= pivot.getPrice()
+                    : arr[j].getRating() <= pivot.getRating();
+
+            if (condition) {
                 i++;
-                Book temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+                swap(arr, i, j);
             }
         }
-        Book temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
+
+        swap(arr, i + 1, high);
         return i + 1;
     }
+
+    private static void swap(Book[] arr, int i, int j) {
+        Book temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
 }
+

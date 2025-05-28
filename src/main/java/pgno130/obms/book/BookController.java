@@ -23,9 +23,10 @@ public final class BookController {
         LinkedList<Book> books = bookService.getBooks();
         Book[] bookArr = new Book[books.getNodeCount()];
         Iterator<Book> iterator = books.iterator();
-        for (int i = 0; i < books.getNodeCount(); i++) bookArr[i] = iterator.next();
+        for (int i = 0; i < books.getNodeCount(); i++) {
+            bookArr[i] = iterator.next();
+        }
         if (sortBy != null) QuickSort.sort(bookArr, 0, bookArr.length - 1, sortBy.equals("price"));
-        for (Book book : bookArr) System.out.println(book.getPrice());
         model.addAttribute("books", bookArr);
         return "book/all-book";
     }
