@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Repository
 public final class NotificationService {
-    private static final String fileName = "Notifications.json";
+    private static final String fileName = "data/Notifications.txt";
     private static final Lock lock = new ReentrantLock();
     private static long notificationId;
 
